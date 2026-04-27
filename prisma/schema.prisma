@@ -1,0 +1,31 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider   = "prisma-client-js"
+  engineType = "binary"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Cliente {
+  id         String     @id @default(uuid())
+  nome       String?
+  contato    String     @unique // Pode ser o número do WhatsApp
+  mensagem   String?
+  status     String     @default("novo") // novo, em_atendimento, convertido, perdido
+  createdAt  DateTime   @default(now())
+  followUps  FollowUp[]
+}
+
+model FollowUp {
+  id         String   @id @default(uuid())
+  clienteId  String
+  mensagem   String
+  dataEnvio  DateTime
+  status     String   @default("pendente") // pendente, enviado, cancelado
+  cliente    Cliente  @relation(fields: [clienteId], references: [id])
+}
