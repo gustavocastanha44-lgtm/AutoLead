@@ -1,36 +1,92 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 AutoLead - MVP de Automação de Atendimento e Follow-up
 
-## Getting Started
+O **AutoLead** é um sistema inteligente de gestão de leads e automação de atendimento focado em pequenas e médias empresas. Ele resolve o problema de perda de vendas por falta de resposta rápida ou esquecimento de follow-up.
 
-First, run the development server:
+Este projeto é um MVP funcional que combina um Dashboard moderno com um motor de automação invisível.
 
+---
+
+## ✨ Funcionalidades Principais
+
+- **Dashboard Premium:** Visualização clara de métricas (leads novos, convertidos, pendentes) em uma interface arrojada com Dark Mode e Glassmorphism.
+- **Captura Multicanal:** Rotas de API prontas para receber leads tanto de formulários de sites quanto de webhooks de WhatsApp (ex: Evolution API, Z-API).
+- **Follow-up Inteligente:** O sistema agenda automaticamente uma mensagem de acompanhamento para 24 horas após o primeiro contato do cliente.
+- **Motor de CRON:** Script integrado para varredura e disparo automático das mensagens agendadas.
+- **Persistência Leve:** Utiliza SQLite com Prisma ORM para máxima performance com zero configuração de infraestrutura.
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+- **[Next.js 15](https://nextjs.org/)** - Framework React para alta performance e SSR.
+- **[Prisma ORM](https://www.prisma.io/)** - Modelagem de dados e comunicação eficiente com o banco.
+- **[SQLite](https://www.sqlite.org/)** - Banco de dados local rápido e confiável.
+- **[Tailwind CSS v4](https://tailwindcss.com/)** - Estilização moderna e responsiva.
+- **[Date-fns](https://date-fns.org/)** - Manipulação inteligente de datas e horários.
+
+---
+
+## 🚀 Como Iniciar o Projeto
+
+### 1. Clonar o repositório
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/gustavocastanha44-lgtm/AutoLead.git
+cd AutoLead
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Instalar as dependências
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Configurar o Banco de Dados
+O projeto já vem com o SQLite configurado. Basta gerar o cliente do Prisma:
+```bash
+npx prisma generate
+npx prisma migrate dev --name init
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 4. Rodar o servidor de desenvolvimento
+```bash
+npm run dev
+```
+Acesse: [http://localhost:3000](http://localhost:3000)
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📡 Endpoints de Integração (Webhooks)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Receber Lead do Site
+`POST /api/leads`
+Corpo esperado: `{ "nome": "...", "contato": "...", "mensagem": "..." }`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Webhook do WhatsApp
+`POST /api/webhook/whatsapp`
+Corpo esperado: `{ "contact": "...", "message": "...", "name": "..." }`
 
-## Deploy on Vercel
+### Processar Follow-ups (CRON)
+`GET /api/cron`
+*Dica: Configure um serviço de CRON externo para chamar esta URL a cada 1 hora.*
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📂 Estrutura do Projeto
+
+```text
+├── prisma/             # Schema e Migrations do Banco de Dados
+├── src/
+│   ├── app/            # Páginas e Rotas da API (Next.js App Router)
+│   │   ├── api/        # Endpoints de Automação e Cron
+│   │   └── page.tsx    # Dashboard Visual do Empresário
+│   ├── lib/            # Configurações do Prisma Client
+│   └── globals.css     # Design System e Estilos Globais
+└── package.json        # Dependências e Scripts do Projeto
+```
+
+---
+
+## 👨‍💻 Desenvolvedor
+Criado como um MVP de alta performance para automação de processos comerciais.
+
+---
+*Este projeto foi desenvolvido com foco em simplicidade, rapidez e conversão.*
