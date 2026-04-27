@@ -16,7 +16,7 @@ model Cliente {
   mensagem  String?
   status    String     @default("novo")
   createdAt DateTime   @default(now())
-  followups FollowUp[]
+  followUps FollowUp[]
 }
 
 model FollowUp {
