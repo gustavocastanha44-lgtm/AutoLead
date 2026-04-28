@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { sendWhatsAppMessage } from '@/lib/whatsapp';
 
 
 // Webhook mock para WhatsApp (ex: Evolution API)
@@ -46,12 +45,6 @@ export async function POST(request: Request) {
 
       // Dispara auto-resposta imediata (Mock)
       console.log(`[WhatsApp API Mock] Enviando auto-resposta para ${contato}: Olá ${nome}, recebemos sua mensagem e retornaremos em breve!`);
-
-      // Notifica o Administrador
-      const adminPhone = process.env.ADMIN_PHONE;
-      if (adminPhone) {
-        await sendWhatsAppMessage(adminPhone, `🚀 *Novo Lead no Dashboard!*\n\n*Nome:* ${nome}\n*Contato:* ${contato}\n*Mensagem:* ${mensagem}`);
-      }
 
     } else {
       // Cliente já existe, apenas atualiza mensagem ou ignora auto-resposta (depende da regra)

@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { sendWhatsAppMessage } from '@/lib/whatsapp';
 
 
 export const dynamic = 'force-dynamic';
@@ -48,12 +47,6 @@ export async function GET() {
         }
       }
     });
-
-    // Notifica o Administrador
-    const adminPhone = process.env.ADMIN_PHONE;
-    if (adminPhone) {
-      await sendWhatsAppMessage(adminPhone, `🤖 *Lead Aleatório Gerado!*\n\n*Nome:* ${randomName}\n*Contato:* ${randomContact}\n*Mensagem:* ${randomMsg}`);
-    }
 
     return NextResponse.json({ 
       success: true, 
