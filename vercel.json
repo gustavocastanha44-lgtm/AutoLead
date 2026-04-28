@@ -1,0 +1,12 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/generate-lead",
+      "schedule": "0 9 * * *"
+    },
+    {
+      "path": "/api/cron",
+      "schedule": "*/30 * * * *"
+    }
+  ]
+}
