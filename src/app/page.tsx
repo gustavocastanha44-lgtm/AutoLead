@@ -7,8 +7,35 @@ import LeadsTable from '@/components/LeadsTable';
 export const dynamic = 'force-dynamic';
 export const revalidate = 10;
 
-export default async function Dashboard() {
+export default async function Dashboard(props: { 
+  searchParams: Promise<{ name?: string, date?: string }> 
+}) {
+  const searchParams = await props.searchParams;
+  const { name, date } = searchParams;
+
+  const whereClause: any = {};
+  
+  if (name) {
+    whereClause.nome = {
+      contains: name,
+      mode: 'insensitive',
+    };
+  }
+
+  if (date) {
+    const startOfDay = new Date(date);
+    startOfDay.setUTCHours(0, 0, 0, 0);
+    const endOfDay = new Date(date);
+    endOfDay.setUTCHours(23, 59, 59, 999);
+    
+    whereClause.createdAt = {
+      gte: startOfDay,
+      lte: endOfDay,
+    };
+  }
+
   const clientes = await prisma.cliente.findMany({
+    where: whereClause,
     orderBy: { createdAt: 'desc' },
     include: {
       followUps: {
