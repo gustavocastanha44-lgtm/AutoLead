@@ -8,18 +8,18 @@ interface LeadsTableProps {
 
 export default function LeadsTable({ clientes }: LeadsTableProps) {
   return (
-    <section className="glass-panel rounded-xl overflow-hidden shadow-2xl">
-      <div className="px-6 py-5 border-b border-white/10 flex justify-between items-center">
-        <h3 className="font-h3 text-on-surface">Leads Recentes</h3>
+    <section className="glass-panel rounded-xl overflow-hidden shadow-sm">
+      <div className="px-6 py-5 border-b border-slate-200 flex justify-between items-center">
+        <h3 className="font-h3 text-slate-800">Leads Recentes</h3>
         <div className="flex gap-2">
-          <button className="px-4 py-2 rounded-lg bg-surface-container-high border border-white/5 font-label-caps hover:bg-surface-variant transition-colors cursor-pointer">Filtrar</button>
-          <button className="px-4 py-2 rounded-lg bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/20 font-label-caps hover:bg-[#3b82f6]/20 transition-colors cursor-pointer">Ver Todos</button>
+          <button className="px-4 py-2 rounded-lg bg-white border border-slate-200 text-slate-600 font-label-caps hover:bg-slate-50 transition-colors cursor-pointer">Filtrar</button>
+          <button className="px-4 py-2 rounded-lg bg-[#eff6ff] text-[#2563eb] border border-[#bfdbfe] font-label-caps hover:bg-[#dbeafe] transition-colors cursor-pointer">Ver Todos</button>
         </div>
       </div>
       
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
-          <thead className="bg-white/5 font-label-caps text-on-surface-variant border-b border-white/5">
+          <thead className="bg-slate-50 font-label-caps text-slate-500 border-b border-slate-200">
             <tr>
               <th className="px-6 py-4">Cliente</th>
               <th className="px-6 py-4">Contato</th>
@@ -27,10 +27,10 @@ export default function LeadsTable({ clientes }: LeadsTableProps) {
               <th className="px-6 py-4">Próximo Follow-up</th>
             </tr>
           </thead>
-          <tbody className="font-body-sm text-on-surface">
+          <tbody className="font-body-sm text-slate-700">
             {clientes.length === 0 && (
               <tr>
-                <td colSpan={4} className="p-8 text-center text-on-surface-variant">Nenhum lead recebido ainda.</td>
+                <td colSpan={4} className="p-8 text-center text-slate-500">Nenhum lead recebido ainda.</td>
               </tr>
             )}
             
@@ -39,7 +39,7 @@ export default function LeadsTable({ clientes }: LeadsTableProps) {
               const proxFollowUp = pendentes.length > 0 ? pendentes[0].dataEnvio : null;
               
               return (
-                <tr key={cliente.id} className="hover:bg-white/[0.03] border-b border-white/[0.05] transition-colors group">
+                <tr key={cliente.id} className="hover:bg-slate-50 border-b border-slate-100 transition-colors group">
                   <td className="px-6 py-5">
                     <div className="flex flex-col">
                       <span className="font-bold text-on-surface font-['Inter']">{cliente.nome || 'Sem Nome'}</span>

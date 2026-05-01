@@ -28,7 +28,7 @@ export default async function Dashboard() {
     <>
       <Header />
       <SideNavBar />
-      <main className="lg:ml-64 pt-24 px-6 pb-12 max-w-[1440px] mx-auto min-h-screen">
+      <main className="lg:ml-64 pt-24 px-6 md:px-12 pb-12 min-h-screen w-full lg:w-[calc(100%-16rem)]">
         <div className="mb-10">
           <h1 className="font-h1 text-h2 md:text-h1 text-on-surface mb-2">Visão Geral</h1>
           <p className="text-on-surface-variant font-body-lg">Acompanhe seus leads e automações em tempo real.</p>
